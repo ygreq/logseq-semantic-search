@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Logseq Semantic Search icon</title>
+  <rect x="12" y="12" width="232" height="232" rx="52" fill="#7C3AED" />
+  <circle cx="114" cy="114" r="52" fill="none" stroke="#FFFFFF" stroke-width="18" />
+  <path d="M152 152 L198 198" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" />
+  <path d="M114 82 L122 106 L146 114 L122 122 L114 146 L106 122 L82 114 L106 106 Z" fill="#DDD6FE" />
+</svg>

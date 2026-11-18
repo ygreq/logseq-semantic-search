@@ -1,0 +1,22 @@
+{
+  "name": "logseq-semantic-search",
+  "version": "0.1.0",
+  "description": "Natural-language semantic search for Logseq powered by a shared EmbeddingGemma text service.",
+  "main": "dist/index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build"
+  },
+  "logseq": {
+    "id": "logseq-semantic-search",
+    "title": "Semantic Search (EmbeddingGemma)",
+    "icon": "icon.svg"
+  },
+  "dependencies": {
+    "@logseq/libs": "^0.0.17"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
