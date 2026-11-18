@@ -7,7 +7,7 @@
   </picture>
 </p>
 
-Natural-language semantic search for Logseq powered by a **shared, text-only EmbeddingGemma service** (no image/vision tower loaded), paired with direct force-scroll block jumping.
+Natural-language semantic search for Logseq powered by a **shared, text-only EmbeddingGemma2 service** (no image/vision tower loaded), paired with direct force-scroll block jumping.
 
 ## Architecture
 
