@@ -1,4 +1,4 @@
-# Logseq Semantic Search (EmbeddingGemma2)
+# Logseq Semantic Search (EmbeddingGemma 2)
 
 <p align="center">
   <picture>
@@ -7,7 +7,7 @@
   </picture>
 </p>
 
-Natural-language semantic search for Logseq powered by a **shared, text-only EmbeddingGemma2 service** (no image/vision tower loaded), paired with direct force-scroll block jumping.
+Natural-language semantic search for Logseq powered by a **shared, text-only EmbeddingGemma 2 service** (no image/vision tower loaded), paired with direct force-scroll block jumping.
 
 ## Architecture
 
