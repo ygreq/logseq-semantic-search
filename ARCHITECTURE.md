@@ -2,7 +2,7 @@
 
 Because Logseq plugins execute inside a sandboxed browser `<iframe>` (with no Node.js `child_process` or OS process control), a plugin cannot directly spawn or terminate `python.exe` or `uvicorn`.
 
-There are two main ways to run EmbeddingGemma (`google/embeddinggemma-300m` / `onnx-community/embeddinggemma-300m-ONNX`) for Logseq:
+There are two main ways to run EmbeddingGemma 2 (`google/embeddinggemma-2` or a 270M text-only export) for Logseq:
 
 ---
 

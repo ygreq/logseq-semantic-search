@@ -13,7 +13,7 @@ Natural-language semantic search for Logseq powered by a **shared, text-only Emb
 
 1. **Shared Embedding Service**
    - Runs **once** locally on `http://127.0.0.1:8765` and can be shared across multiple apps.
-   - Exposes `POST /embed` and OpenAI-compatible `POST /v1/embeddings` using only the text encoder (`google/embeddinggemma-300m` by default, or override via `EMBEDDING_MODEL_ID`).
+   - Exposes `POST /embed` and OpenAI-compatible `POST /v1/embeddings` using EmbeddingGemma 2 (`google/embeddinggemma-2` text-only path, or override via `EMBEDDING_MODEL_ID`).
 2. **Logseq Plugin (`logseq-semantic-search`)**
    - Incrementally indexes your graph blocks into browser IndexedDB (only embeds new or edited blocks).
    - Opens with **`Ctrl+Alt+S`** (`Cmd+Option+S`) or the toolbar icon.
