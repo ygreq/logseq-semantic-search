@@ -79,13 +79,14 @@ function ensureModalStyles(doc: Document): void {
       white-space: nowrap;
     }
     .ss-btn.primary {
-      background: #7c3aed;
-      color: #ffffff;
+      background: var(--ls-link-text-color, #2563eb);
+      color: var(--ls-primary-background-color, #ffffff);
       border-color: transparent;
+      font-weight: 600;
     }
     .ss-btn.active {
-      background: var(--ls-link-text-color, #2563eb);
-      color: #ffffff;
+      background: var(--ls-active-primary-color, var(--ls-link-text-color, #2563eb));
+      color: var(--ls-primary-background-color, #ffffff);
       border-color: transparent;
     }
     .ss-btn:disabled {
@@ -115,7 +116,7 @@ function ensureModalStyles(doc: Document): void {
     }
     .ss-item.selected,
     .ss-item:hover {
-      background: var(--ls-tertiary-background-color, rgba(124, 58, 237, 0.12));
+      background: var(--ls-tertiary-background-color, var(--ls-selection-background-color, rgba(59, 130, 246, 0.12)));
     }
     .ss-meta {
       display: flex;
@@ -131,7 +132,7 @@ function ensureModalStyles(doc: Document): void {
     .ss-score {
       font-size: 11px;
       font-weight: 600;
-      color: #7c3aed;
+      color: var(--ls-secondary-text-color, #6b7280);
     }
     .ss-content {
       font-size: 13px;

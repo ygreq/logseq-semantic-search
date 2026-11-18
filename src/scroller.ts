@@ -34,9 +34,9 @@ function ensureHighlightStyles(doc: Document): void {
   style.id = HIGHLIGHT_STYLE_ID;
   style.textContent = `
     .semantic-jump-highlight {
-      outline: 2px solid #7c3aed !important;
+      outline: 2px solid var(--ls-link-text-color, #3b82f6) !important;
       outline-offset: 2px;
-      background-color: rgba(124, 58, 237, 0.14) !important;
+      background-color: var(--ls-block-highlight-color, rgba(59, 130, 246, 0.14)) !important;
       border-radius: 4px;
       transition: background-color 0.4s ease, outline-color 0.4s ease;
     }
