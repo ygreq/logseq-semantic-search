@@ -39,9 +39,10 @@ async function main(): Promise<void> {
     template: `
       <a class="button" data-on-click="openSemanticSearch" title="Semantic Search (EmbeddingGemma)">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <circle cx="10.5" cy="10.5" r="5.5" stroke="currentColor" stroke-width="2" />
-          <path d="M14.5 14.5 L20 20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
-          <path d="M10.5 7.5 L11.3 9.7 L13.5 10.5 L11.3 11.3 L10.5 13.5 L9.7 11.3 L7.5 10.5 L9.7 9.7 Z" fill="currentColor" />
+          <path d="M6 17 L12 5 L18 15 L6 17 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+          <circle cx="12" cy="5" r="2.2" fill="currentColor" />
+          <circle cx="6" cy="17" r="2" fill="currentColor" />
+          <circle cx="18" cy="15" r="2.6" fill="var(--ls-primary-background-color, #fff)" stroke="currentColor" stroke-width="2" />
         </svg>
       </a>
     `,

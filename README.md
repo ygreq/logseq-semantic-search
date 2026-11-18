@@ -1,5 +1,12 @@
 # Logseq Semantic Search (EmbeddingGemma)
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="branding/logo-stacked-dark.svg" />
+    <img src="branding/logo-stacked.svg" width="230" alt="Logseq Semantic Search logo" />
+  </picture>
+</p>
+
 Natural-language semantic search for Logseq powered by a **shared, text-only EmbeddingGemma service** (no image/vision tower loaded), paired with direct force-scroll block jumping.
 
 ## Architecture
