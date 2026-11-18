@@ -11,8 +11,12 @@ const DB_NAME = 'logseq-semantic-search-db';
 const DB_VERSION = 1;
 const STORE_NAME = 'blocks';
 
+let memoryCache: IndexedBlock[] | null = null;
+let cachedDb: Promise<IDBDatabase> | null = null;
+
 function openDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
+  if (cachedDb) return cachedDb;
+  cachedDb = new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onupgradeneeded = () => {
       const db = req.result;
@@ -21,23 +25,43 @@ function openDb(): Promise<IDBDatabase> {
       }
     };
     req.onsuccess = () => resolve(req.result);
+    req.onerror = () => {
+      cachedDb = null;
+      reject(req.error);
+    };
+  });
+  return cachedDb;
+}
+
+export async function getIndexedBlockCount(): Promise<number> {
+  if (memoryCache) return memoryCache.length;
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readonly');
+    const req = tx.objectStore(STORE_NAME).count();
+    req.onsuccess = () => resolve(req.result ?? 0);
     req.onerror = () => reject(req.error);
   });
 }
 
 export async function getAllIndexedBlocks(): Promise<IndexedBlock[]> {
+  if (memoryCache) return memoryCache;
   const db = await openDb();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readonly');
     const store = tx.objectStore(STORE_NAME);
     const req = store.getAll();
-    req.onsuccess = () => resolve((req.result as IndexedBlock[]) ?? []);
+    req.onsuccess = () => {
+      memoryCache = (req.result as IndexedBlock[]) ?? [];
+      resolve(memoryCache);
+    };
     req.onerror = () => reject(req.error);
   });
 }
 
 export async function putIndexedBlocks(items: IndexedBlock[]): Promise<void> {
   if (items.length === 0) return;
+  memoryCache = null;
   const db = await openDb();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readwrite');
@@ -52,6 +76,7 @@ export async function putIndexedBlocks(items: IndexedBlock[]): Promise<void> {
 
 export async function deleteIndexedBlocks(uuids: string[]): Promise<void> {
   if (uuids.length === 0) return;
+  memoryCache = null;
   const db = await openDb();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readwrite');
@@ -65,6 +90,7 @@ export async function deleteIndexedBlocks(uuids: string[]): Promise<void> {
 }
 
 export async function clearAllIndexedBlocks(): Promise<void> {
+  memoryCache = null;
   const db = await openDb();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readwrite');

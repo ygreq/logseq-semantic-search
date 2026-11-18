@@ -1,5 +1,5 @@
 import '@logseq/libs';
-import { getAllIndexedBlocks } from './db';
+import { getAllIndexedBlocks, getIndexedBlockCount } from './db';
 import { syncGraphIndex } from './indexer';
 import { jumpToBlock } from './scroller';
 import { semanticSearch, type SemanticResult } from './semanticSearch';
@@ -165,11 +165,7 @@ export async function openSemanticModal(): Promise<void> {
   ensureModalStyles(doc);
   closeSemanticModal();
 
-  const currentPage = await logseq.Editor.getCurrentPage();
-  const currentPageName =
-    currentPage && 'name' in currentPage ? String(currentPage.name) : undefined;
-  const initialIndexed = (await getAllIndexedBlocks()).length;
-
+  let currentPageName: string | undefined;
   let currentPageOnly = false;
   let results: SemanticResult[] = [];
   let selectedIndex = 0;
@@ -181,16 +177,10 @@ export async function openSemanticModal(): Promise<void> {
     <div class="ss-dialog" role="dialog" aria-modal="true" aria-label="Semantic Search">
       <div class="ss-header">
         <input class="ss-input" type="text" placeholder="Ask in natural language (e.g. 'how I fixed docker permissions')..." />
-        <button class="ss-btn ss-scope-btn" type="button" ${
-          currentPageName ? '' : 'disabled'
-        }>All Pages</button>
+        <button class="ss-btn ss-scope-btn" type="button" disabled>All Pages</button>
         <button class="ss-btn primary ss-sync-btn" type="button">Sync Index</button>
       </div>
-      <div class="ss-status">${
-        initialIndexed > 0
-          ? `${initialIndexed} blocks indexed. Type a natural-language query...`
-          : 'No blocks indexed yet. Click "Sync Index" to embed your graph.'
-      }</div>
+      <div class="ss-status">Loading index status...</div>
       <ul class="ss-list"></ul>
       <div class="ss-footer">
         <span>Enter: Jump to block &nbsp;|&nbsp; Shift+Enter: Right Sidebar</span>
@@ -206,6 +196,29 @@ export async function openSemanticModal(): Promise<void> {
   const syncBtn = overlay.querySelector<HTMLButtonElement>('.ss-sync-btn')!;
   const statusEl = overlay.querySelector<HTMLDivElement>('.ss-status')!;
   const listEl = overlay.querySelector<HTMLUListElement>('.ss-list')!;
+
+  // Focus immediately without waiting on IndexedDB or Logseq IPC
+  input.focus();
+
+  // Populate page scope, fast count, and warm up memory cache in background
+  void logseq.Editor.getCurrentPage().then((page) => {
+    if (page && 'name' in page) {
+      currentPageName = String(page.name);
+      scopeBtn.disabled = false;
+    }
+  });
+
+  void getIndexedBlockCount().then((count) => {
+    if (!input.value.trim()) {
+      statusEl.textContent =
+        count > 0
+          ? `${count} blocks indexed. Type a natural-language query...`
+          : 'No blocks indexed yet. Click "Sync Index" to embed your graph.';
+    }
+    if (count > 0) {
+      void getAllIndexedBlocks();
+    }
+  });
 
   const renderList = () => {
     listEl.innerHTML = '';
@@ -234,7 +247,7 @@ export async function openSemanticModal(): Promise<void> {
     if (!q) {
       results = [];
       selectedIndex = 0;
-      const count = (await getAllIndexedBlocks()).length;
+      const count = await getIndexedBlockCount();
       statusEl.textContent =
         count > 0
           ? `${count} blocks indexed. Type a natural-language query...`
