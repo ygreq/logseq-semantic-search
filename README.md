@@ -1,4 +1,4 @@
-# Logseq Semantic Search (EmbeddingGemma)
+# Logseq Semantic Search (EmbeddingGemma2)
 
 <p align="center">
   <picture>
