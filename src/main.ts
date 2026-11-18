@@ -53,7 +53,7 @@ async function main(): Promise<void> {
       key: 'semantic-search-open',
       label: 'Semantic Search: Natural Language Search',
       keybinding: {
-        binding: 'mod+alt+s',
+        binding: 'mod+alt+g',
       },
     },
     () => {

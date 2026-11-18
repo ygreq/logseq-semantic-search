@@ -16,7 +16,7 @@ Natural-language semantic search for Logseq powered by a **shared, text-only Emb
    - Exposes `POST /embed` and OpenAI-compatible `POST /v1/embeddings` using EmbeddingGemma 2 (`google/embeddinggemma-2` text-only path, or override via `EMBEDDING_MODEL_ID`).
 2. **Logseq Plugin (`logseq-semantic-search`)**
    - Incrementally indexes your graph blocks into browser IndexedDB (only embeds new or edited blocks).
-   - Opens with **`Ctrl+Alt+S`** (`Cmd+Option+S`) or the toolbar icon.
+   - Opens with **`Ctrl+Alt+G`** (`Cmd+Option+G`) or the toolbar icon.
    - Ranks blocks by cosine similarity and jumps directly to the selected note (expanding collapsed parents and loading lazy blocks).
 
 ## Setup
@@ -31,7 +31,7 @@ npm run build
 ```
 In Logseq Desktop: **Settings -> Advanced -> Developer mode (ON)** -> **Plugins -> Load unpacked plugin** -> select the cloned `logseq-semantic-search` folder.
 
-Press **`Ctrl+Alt+S`**, click **Sync Index**, and search in plain natural language.
+Press **`Ctrl+Alt+G`**, click **Sync Index**, and search in plain natural language.
 
 ---
 
